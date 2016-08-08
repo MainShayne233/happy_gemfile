@@ -15,7 +15,7 @@ module HappyGemfile
       in_group = false
 
       lines.each_with_index do |line, index|
-        if line.include? 'gem' and !(line.include? "source '")
+        if line.include? 'gem ' and !(line.include? "source '")
           unless in_group
             gem_groups[0] << line
             gem_indexes[0] << index
