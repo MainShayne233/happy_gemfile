@@ -1,3 +1,5 @@
 #!/usr/bin/env ruby
 
-puts "test for happy"
+require 'happy_gemfile'
+
+puts "hi"
