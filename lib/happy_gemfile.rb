@@ -4,7 +4,7 @@ module HappyGemfile
 
     def self.alphabetize
       unless File.exists? "Gemfile"
-        puts "There doesn't appear to be a Gemfile. . . not sure what to sort."
+        puts "There doesn't appear to be a Gemfile... not sure what to do."
         return false
       end
 

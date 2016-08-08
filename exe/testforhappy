@@ -1,5 +1,0 @@
-#!/usr/bin/env ruby
-
-require 'happy_gemfile'
-
-puts "hi"
