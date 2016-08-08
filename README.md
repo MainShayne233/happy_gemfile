@@ -27,7 +27,7 @@ $ happy_gemfile
 
 Alternatively, you can call the alphabetize method directly in your app, say, in your config.rb.
 ```ruby
-HappyGems.alphabetize
+HappyGemfile.alphabetize
 ```
 
 
