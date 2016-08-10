@@ -27,16 +27,15 @@ $ happy_gemfile
 
 But nothing will happen without arguments!
 ```bash
-happy_gemfile alphabetize # alphabetizes gems in place
+happy_gemfile alphabetize # alphabetizes gems in place; reminds me of grade school.
 
-happy_gemfile wipe_comments # clears all, non-inline, comments
+happy_gemfile wipe_comments # clears all, non-inline, comments; you know what you're doing, right?
 
-happy_gemfile organize_groups # places gems tidily their specified group.
+happy_gemfile organize_groups # places gems tidily their specified group; home sweet home!
 
-happy_gemfile all # one arg to call them all! (RECCOMMENDED)
+happy_gemfile all # one arg to call them all! (RECOMMENDED)
 
 ```
-
 
 
 Alternatively, you can call the alphabetize method directly in your app, say, in your config.rb.
