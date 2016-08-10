@@ -1,9 +1,9 @@
 require "happy_gemfile/version"
 
 module HappyGemfile
-    def self.alphabetize
+    def self.alphabetize lines=nil
 
-      lines = gemfile
+      lines ||= gemfile
       gem_groups = [[]]
       gem_indexes = [[]]
       group_count = 0
@@ -34,13 +34,51 @@ module HappyGemfile
         end
       end
 
-      replace_gemfile lines
+      lines
     end
 
-    def self.wipe_comments
-      lines = gemfile
+    def self.wipe_comments lines=nil
+      lines ||= gemfile
       lines.delete_if{|line| is_comment?(line)}
-      replace_gemfile lines
+      lines
+    end
+
+    def self.organize_groups lines=nil
+      lines ||= gemfile
+      groups = {general: []}
+      current_group = :general
+      lines.each do |line|
+        if is? line, 'gem'
+          groups[current_group] << line.gsub("\n", '')
+        elsif is? line, 'group'
+          current_group = group_name line
+          groups[current_group] ||= []
+        elsif is? line, 'end'
+          current_group = :general
+        else
+          groups[:not_gems] ||= []
+          groups[:not_gems] << line.gsub("\n", '')
+        end
+      end
+
+      groups.each {|key, lines| lines.delete_if {|line| ["\n", ''].include? line} }
+
+      organized = []
+
+      groups[:not_gems].each {|line| organized << line << "\n"}
+
+      organized << "\n"
+
+      groups[:general].each {|line| organized << line << "\n"}
+
+      organized << "\n"
+
+      (groups.keys - [:general, :not_gems]).each do |group|
+        organized << "group #{group_line(group)} do" << "\n"
+        groups[group].each {|line| organized << "#{line}" << "\n"}
+        organized << 'end' << "\n\n"
+      end
+      organized
     end
 
     # HELPERS
@@ -51,6 +89,18 @@ module HappyGemfile
 
     def self.is? line, type
       line.split(' ').first == type
+    end
+
+    def self.group_name line
+      line.match(/group(.*)do/)
+          .to_a[1]
+          .strip.gsub(', ', '_')
+          .gsub(':', '')
+          .to_sym
+    end
+
+    def self.group_line group
+      group.to_s.split('_').map{|g| ":#{g}"}.join(', ')
     end
 
     def self.gemfile

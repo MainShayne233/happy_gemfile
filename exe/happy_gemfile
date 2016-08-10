@@ -2,4 +2,17 @@
 
 require 'happy_gemfile'
 
-HappyGemfile.alphabetize
+if ARGV.empty?
+  puts "\nHey! I need some arguments here!\n\n"\
+     "You can run 'happy_gemfile all' for everything, or, if you don't trust me, you can pass any of these in:\n\n"\
+     "alphabetize - Organizes gems alphabetically\n"\
+     "wipe_comments - Removes all, non-inline comments\n"\
+     "organize_groups - Places everything tidily their specified group."
+  exit
+end
+
+gemfile = HappyGemfile.gemfile
+
+%w(wipe_comments organize_groups alphabetize).each{|arg|gemfile = HappyGemfile.send(arg, gemfile) unless [arg, 'all'] - ARGV == [arg, 'all']}
+
+HappyGemfile.replace_gemfile gemfile
