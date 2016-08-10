@@ -1,6 +1,14 @@
 require "happy_gemfile/version"
 
 module HappyGemfile
+
+    def self.all
+      gemfile = wipe_comments
+      gemfile = organize_groups gemfile
+      gemfile = alphabetize gemfile
+      replace_gemfile gemfile
+    end
+
     def self.alphabetize lines=nil
 
       lines ||= gemfile

@@ -41,6 +41,13 @@ happy_gemfile all # one arg to call them all! (RECOMMENDED)
 Alternatively, you can call the alphabetize method directly in your app, say, in your config.rb.
 ```ruby
 HappyGemfile.alphabetize
+
+HappyGemfile.wipe_comments
+
+HappyGemfile.organize_groups
+
+HappyGemfile.all
+
 ```
 
 
