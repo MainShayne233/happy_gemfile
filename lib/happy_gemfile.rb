@@ -112,7 +112,7 @@ module HappyGemfile
     end
 
     def self.gemfile
-      unless File.exists? "Gemfile"
+      unless File.exist? "Gemfile"
         puts "There doesn't appear to be a Gemfile... not sure what to do."
         return false
       end
